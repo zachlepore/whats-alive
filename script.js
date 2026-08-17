@@ -20,6 +20,9 @@ const sceneSlots = {
   middle: [
     { x: 13, y: 49 }, { x: 37, y: 53 }, { x: 62, y: 48 }, { x: 86, y: 57 },
   ],
+  lower: [
+    { x: 17, y: 64 }, { x: 40, y: 67 }, { x: 64, y: 63 }, { x: 84, y: 68 },
+  ],
   ground: [
     { x: 10, y: 76 }, { x: 29, y: 81 }, { x: 50, y: 75 }, { x: 71, y: 82 }, { x: 90, y: 76 },
   ],
@@ -110,23 +113,50 @@ function selectDiverseOrganisms(observations, limit) {
   return selected;
 }
 
-function classifyTaxon(observation, index) {
+const flyingInsectAncestorIds = new Set([
+  47157, // butterflies and moths (Lepidoptera)
+  47201, // bees, wasps, and ants (Hymenoptera; ants are handled by name below)
+  47792, // dragonflies and damselflies (Odonata)
+  47822, // flies (Diptera)
+]);
+
+function classifyTaxon(observation) {
   const group = observation.taxon?.iconic_taxon_name;
+  const taxonText = `${observation.taxon?.name || ""} ${observation.taxon?.preferred_common_name || ""}`.toLowerCase();
+  const ancestorIds = observation.taxon?.ancestor_ids || [];
+
   if (group === "Plantae" || group === "Fungi") return "ground";
-  if (group === "Aves") return "sky";
-  if (group === "Insecta" || group === "Arachnida") return index % 2 === 0 ? "sky" : "middle";
-  if (["Mammalia", "Reptilia", "Amphibia", "Mollusca"].includes(group)) return "middle";
+  if (group === "Aves") return "flying";
+  if (group === "Arachnida") return "lower";
+  if (group === "Reptilia" || group === "Amphibia") return "lower";
+  if (group === "Mammalia" || group === "Mollusca") return "lower";
+
+  if (group === "Insecta") {
+    const isAnt = /\bant(s)?\b|formicidae/.test(taxonText) || ancestorIds.includes(47336);
+    const isBeetle = /\bbeetle(s)?\b|coleoptera/.test(taxonText) || ancestorIds.includes(47208);
+    const hasFlyingOrder = ancestorIds.some((id) => flyingInsectAncestorIds.has(id));
+    return !isAnt && !isBeetle && hasFlyingOrder ? "flying" : "lower";
+  }
+
+  return "unknown";
+}
+
+function sceneRegionFor(classification) {
+  if (classification === "flying") return "sky";
+  if (classification === "ground") return "ground";
+  if (classification === "lower") return "lower";
   return "middle";
 }
 
 function spawnOrganismBubbles(observations, userLatitude, userLongitude) {
   organismsLayer.replaceChildren();
-  const usedSlots = { sky: 0, middle: 0, ground: 0 };
+  const usedSlots = { sky: 0, middle: 0, lower: 0, ground: 0 };
 
   observations.forEach((observation, index) => {
-    let region = classifyTaxon(observation, index);
+    const classification = classifyTaxon(observation);
+    let region = sceneRegionFor(classification);
     if (usedSlots[region] >= sceneSlots[region].length) {
-      region = ["middle", "ground", "sky"].find((name) => usedSlots[name] < sceneSlots[name].length) || region;
+      region = ["middle", "lower", "ground", "sky"].find((name) => usedSlots[name] < sceneSlots[name].length) || region;
     }
     const slot = sceneSlots[region][usedSlots[region] % sceneSlots[region].length];
     usedSlots[region] += 1;
