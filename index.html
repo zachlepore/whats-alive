@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover a recent wildlife observation near you.">
+    <meta name="description" content="Discover the wonderfully weird wildlife observed near you.">
     <title>What’s Alive Near You?</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
@@ -12,34 +12,62 @@
     <main>
       <section class="landing" id="landing" aria-labelledby="page-title">
         <div class="landing__content">
-          <p class="eyebrow">A nearby wildlife encounter</p>
-          <h1 id="page-title">What’s Alive<br>Near You?</h1>
-          <button id="enter-button" type="button">ENTER THE BIOSPHERE</button>
-          <p class="privacy-note">We’ll only use your location to search nearby.</p>
+          <p class="landing__scribble" aria-hidden="true">////////////////////</p>
+          <h1 id="page-title">WHAT’S ALIVE<br>NEAR YOU?</h1>
+          <button class="enter-button" id="enter-button" type="button">ENTER THE BIOSPHERE</button>
+          <p class="privacy-note">We only borrow your location for one nearby search. We don’t keep it.</p>
           <p class="status" id="status" role="status" aria-live="polite"></p>
         </div>
       </section>
 
-      <section class="observation" id="observation" aria-labelledby="common-name" hidden>
-        <div class="observation__image-wrap">
-          <img id="observation-image" src="" alt="">
+      <section class="ecosystem" id="ecosystem" aria-label="Nearby wildlife ecosystem" hidden>
+        <div class="sky-scribbles" aria-hidden="true"></div>
+        <svg class="sun" viewBox="0 0 180 180" aria-hidden="true">
+          <g fill="none" stroke="#f5c518" stroke-linecap="round">
+            <path stroke-width="11" d="M90 4l1 27M90 150l-6 26M6 91l27-3M148 88l28 5M30 28l19 21M135 134l21 22M151 26l-20 24M47 133l-23 20"/>
+            <path fill="#f7cf25" stroke-width="8" d="M43 90c-2-27 18-49 45-51 29-2 51 19 52 47 2 27-20 51-49 52-26 1-46-20-48-48z"/>
+            <path stroke="#765b18" stroke-width="5" d="M67 78l8-2m28 1l8 2M72 104q18 13 37-1"/>
+          </g>
+        </svg>
+
+        <svg class="cloud cloud--one" viewBox="0 0 220 100" aria-hidden="true">
+          <path d="M12 76Q22 48 52 56Q58 21 92 38Q112 7 139 41Q183 31 180 62Q207 58 211 79Q110 88 12 76Z"/>
+        </svg>
+        <svg class="cloud cloud--two" viewBox="0 0 220 100" aria-hidden="true">
+          <path d="M9 76Q17 48 48 59Q60 21 92 42Q114 14 139 46Q171 33 184 63Q209 61 213 81Q113 91 9 76Z"/>
+        </svg>
+
+        <div class="scene-title">
+          <span>stuff alive near you</span>
+          <small id="scene-count"></small>
         </div>
-        <div class="observation__details">
-          <p class="eyebrow">Recently observed near you</p>
-          <h2 id="common-name"></h2>
-          <p class="scientific-name" id="scientific-name"></p>
+
+        <div class="hills" aria-hidden="true">
+          <svg viewBox="0 0 1200 280" preserveAspectRatio="none">
+            <path class="hill hill--back" d="M-20 280Q120 36 322 263Q510 16 735 264Q920 70 1220 275V300H-20Z"/>
+            <path class="hill hill--front" d="M-20 280Q190 120 401 276Q680 89 894 274Q1060 150 1220 271V300H-20Z"/>
+          </svg>
+        </div>
+
+        <div class="grass" aria-hidden="true">
+          <span class="flower flower--one">✕</span><span class="flower flower--two">✣</span>
+          <span class="flower flower--three">✕</span><span class="flower flower--four">✣</span>
+        </div>
+
+        <div class="organisms" id="organisms"></div>
+        <div class="scene-dimmer" id="scene-dimmer"></div>
+
+        <aside class="details" id="details" aria-labelledby="detail-common-name" aria-modal="true" role="dialog" hidden>
+          <button class="details__close" id="details-close" type="button" aria-label="Close organism details">×</button>
+          <p class="details__label">YOU FOUND A</p>
+          <h2 id="detail-common-name"></h2>
+          <p class="scientific-name" id="detail-scientific-name"></p>
           <dl>
-            <div>
-              <dt>Observed</dt>
-              <dd id="observation-date"></dd>
-            </div>
-            <div>
-              <dt>Distance</dt>
-              <dd id="observation-distance"></dd>
-            </div>
+            <div><dt>Spotted</dt><dd id="detail-date"></dd></div>
+            <div><dt>About</dt><dd id="detail-distance"></dd></div>
           </dl>
-          <a id="observation-link" href="" target="_blank" rel="noopener noreferrer">View on iNaturalist</a>
-        </div>
+          <a id="detail-link" href="" target="_blank" rel="noopener noreferrer">see the real observation →</a>
+        </aside>
       </section>
     </main>
   </body>
