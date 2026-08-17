@@ -169,10 +169,37 @@ button:disabled { cursor: wait; opacity: 0.65; }
 .details a { color: #174e31; font-weight: 900; text-decoration-thickness: 3px; text-underline-offset: 4px; }
 
 @media (max-width: 600px) {
+  body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  h1 {
+    max-width: 100%;
+    margin-bottom: 2.25rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: clamp(2.8rem, 14vw, 4rem);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .enter-button {
+    max-width: 100%;
+    padding: 1rem 1.4rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: clamp(0.9rem, 4.2vw, 1.05rem);
+    font-weight: 900;
+    line-height: 1.25;
+  }
+  .privacy-note, .status {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
   .sun { top: 4%; right: -20px; }
   .cloud--one { top: 10%; left: -10%; }
   .cloud--two { display: none; }
-  .scene-title { top: 0.55rem; }
+  .scene-title { top: 0.55rem; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .scene-title span { font-family: inherit; font-weight: 900; line-height: 1.25; }
+  .scene-title small { font-family: inherit; font-size: 0.7rem; line-height: 1.35; }
   .organism { left: clamp(48px, var(--x), calc(100% - 48px)); width: clamp(68px, 21vw, 94px); }
   .organism.is-open { top: 23%; left: 50%; width: min(45vw, 180px); }
   .details {
@@ -190,13 +217,16 @@ button:disabled { cursor: wait; opacity: 0.65; }
     line-height: 1.5;
     transform: rotate(0.5deg);
   }
-  .details__label { margin-bottom: 0.65rem; font-family: "Comic Sans MS", "Comic Sans", cursive; font-size: 0.85rem; line-height: 1.3; }
+  .details__label { margin-bottom: 0.65rem; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 0.85rem; line-height: 1.3; }
   .details h2 {
     max-width: 100%;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    font-size: clamp(1.8rem, 8vw, 2.6rem);
-    line-height: 1.08;
-    overflow-wrap: anywhere;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: clamp(2rem, 9vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    overflow-wrap: normal;
+    word-break: normal;
   }
   .scientific-name { margin: 0.75rem 0 1.4rem; font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
   .details dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
