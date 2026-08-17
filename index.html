@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover a recent wildlife observation near you.">
+    <title>What’s Alive Near You?</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <section class="landing" id="landing" aria-labelledby="page-title">
+        <div class="landing__content">
+          <p class="eyebrow">A nearby wildlife encounter</p>
+          <h1 id="page-title">What’s Alive<br>Near You?</h1>
+          <button id="enter-button" type="button">ENTER THE BIOSPHERE</button>
+          <p class="privacy-note">We’ll only use your location to search nearby.</p>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="observation" id="observation" aria-labelledby="common-name" hidden>
+        <div class="observation__image-wrap">
+          <img id="observation-image" src="" alt="">
+        </div>
+        <div class="observation__details">
+          <p class="eyebrow">Recently observed near you</p>
+          <h2 id="common-name"></h2>
+          <p class="scientific-name" id="scientific-name"></p>
+          <dl>
+            <div>
+              <dt>Observed</dt>
+              <dd id="observation-date"></dd>
+            </div>
+            <div>
+              <dt>Distance</dt>
+              <dd id="observation-distance"></dd>
+            </div>
+          </dl>
+          <a id="observation-link" href="" target="_blank" rel="noopener noreferrer">View on iNaturalist</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
